@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arroyo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: web
+  template:
+    metadata:
+      labels:
+        name: web
+    spec:
+      containers:
+      - name: arroyo
+        image: arroyo:latest
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-playground-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: web
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 30001

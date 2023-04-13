@@ -1,11 +1,26 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
-@Controller()
+const buildTime = new Date();
+
+@Controller("/")
 export class AppController {
   constructor() { }
 
   @Get('/whoami')
-  whoAmI(): string {
+  whoAmI() {
     return "I'm den";
+  }
+
+  @Get('/buildtime')
+  buildTime() {
+    return buildTime.toISOString();
+  }
+
+  @Get('/api/:path*')
+  api(@Param('path') path: string) {
+    return {
+      api: true,
+      path,
+    };
   }
 }

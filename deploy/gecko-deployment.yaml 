@@ -7,13 +7,27 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: web
+      name: gecko
   template:
     metadata:
       labels:
-        name: web
+        name: gecko
     spec:
       containers:
       - name: gecko
         image: gecko:latest
         imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gecko-service
+spec:
+  type: ClusterIP
+  selector:
+    app: gecko
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000

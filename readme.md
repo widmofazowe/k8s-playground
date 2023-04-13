@@ -6,5 +6,14 @@ Docker registry:
 3. Set the image in the pod spec like the build tag (eg my-image)
 4. Set the imagePullPolicy to Never, otherwise Kubernetes will try to download the image.
 
+OR `minikube image load my-image`
 
 Entrypoint: minikube service k8s-playground-entrypoint --url
+
+
+Apps:
+| Name   | description |   |   |   |
+|--------|-------------|---|---|---|
+| arroyo | entrypoint  |   |   |   |
+| gecko  | frontend    |   |   |   |
+| den    | api         |   |   |   |

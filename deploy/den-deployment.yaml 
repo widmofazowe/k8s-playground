@@ -4,16 +4,30 @@ metadata:
   name: den
   namespace: default
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      name: web
+      name: den
   template:
     metadata:
       labels:
-        name: web
+        name: den
     spec:
       containers:
       - name: den
-        image: gecko:latest
+        image: den:latest
         imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: den-service
+spec:
+  type: ClusterIP
+  selector:
+    app: den
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080

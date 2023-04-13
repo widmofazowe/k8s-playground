@@ -7,26 +7,29 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: web
+      name: arroyo
   template:
     metadata:
       labels:
-        name: web
+        name: arroyo
     spec:
       containers:
       - name: arroyo
         image: arroyo:latest
         imagePullPolicy: Never
+        envFrom:
+        - secretRef:
+            name: app-secrets
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8s-playground-entrypoint
+  name: arroyo-service
   namespace: default
 spec:
   type: NodePort
   selector:
-    name: web
+    name: arroyo
   ports:
   - port: 3000
     targetPort: 3000

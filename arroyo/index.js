@@ -1,18 +1,25 @@
 const express = require('express');
-const { Proxy } = require('axios-express-proxy');
-const {version} = require("./package.json");
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const { version } = require("./package.json");
 const app = express();
 const port = 3000;
 
 const buildTime = new Date();
 
-app.get('/whoami', (req, res) => {
+app.use((req, res, next) => {
   console.log(`request ${req.path}`);
+  next();
+})
+
+app.get('/whoami', (req, res) => {
   res.send("I'm arroyo");
 });
 
+app.get('/health', (req, res) => {
+  res.send("ok");
+});
+
 app.get('/version', (req, res) => {
-  console.log(`request ${req.path}`);
   res.json({
     buildTime,
     version,
@@ -20,9 +27,16 @@ app.get('/version', (req, res) => {
   });
 });
 
-app.get('/api/*', (req, res) => {
-  console.log(`request ${req.path}`);
-  return Proxy('http://den', req, res);
+app.use(
+  '/api',
+  createProxyMiddleware({
+    target: 'http://den-service/api',
+    changeOrigin: true,
+  })
+);
+
+app.use((req, res) => {
+  res.status(404).end('Not found');
 });
 
 app.listen(port, () => {

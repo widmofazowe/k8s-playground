@@ -8,7 +8,8 @@ Docker registry:
 
 OR `minikube image load my-image`
 
-Entrypoint: minikube service k8s-playground-entrypoint --url
+Entrypoint: minikube service arroyo-entrypoint --url
+`kc port-forward service arroyo-entrypoint 3001:3000`
 
 
 Apps:
@@ -17,3 +18,16 @@ Apps:
 | arroyo | entrypoint  |   |   |   |
 | gecko  | frontend    |   |   |   |
 | den    | api         |   |   |   |
+
+
+TODO:
+ingress
+octant
+helm
+vsc kubernator
+k9s
+https://nip.io/
+promotheus + loki + grafana
+port: http
+open-telemetry + grafana tempo
+kubevious

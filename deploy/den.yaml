@@ -7,16 +7,18 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      name: den
+      app: den
   template:
     metadata:
       labels:
-        name: den
+        app: den
     spec:
       containers:
       - name: den
         image: den:latest
         imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -27,7 +29,6 @@ spec:
   selector:
     app: den
   ports:
-    - name: http
-      protocol: TCP
+    - protocol: TCP
       port: 80
       targetPort: 8080

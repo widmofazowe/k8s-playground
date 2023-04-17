@@ -7,16 +7,18 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: arroyo
+      app: arroyo
   template:
     metadata:
       labels:
-        name: arroyo
+        app: arroyo
     spec:
       containers:
       - name: arroyo
         image: arroyo:latest
         imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
         envFrom:
         - secretRef:
             name: app-secrets
@@ -41,7 +43,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    name: arroyo
+    app: arroyo
   ports:
   - port: 3000
     targetPort: 3000

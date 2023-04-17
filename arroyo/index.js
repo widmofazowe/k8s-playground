@@ -8,19 +8,19 @@ const buildTime = new Date();
 
 app.use((req, res, next) => {
   console.log(`request ${req.path}`);
-  next();
+  return next();
 })
 
 app.get('/whoami', (req, res) => {
-  res.send("I'm arroyo");
+  return res.send("I'm arroyo");
 });
 
 app.get('/health', (req, res) => {
-  res.send("ok");
+  return res.send("ok");
 });
 
 app.get('/version', (req, res) => {
-  res.json({
+  return res.json({
     buildTime,
     version,
     env: process.env.NODE_ENV,
@@ -31,12 +31,11 @@ app.use(
   '/api',
   createProxyMiddleware({
     target: 'http://den-service/api',
-    changeOrigin: true,
   })
 );
 
 app.use((req, res) => {
-  res.status(404).end('Not found');
+  return res.status(404).end('Not found');
 });
 
 app.listen(port, () => {

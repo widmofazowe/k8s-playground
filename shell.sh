@@ -1,3 +1,6 @@
+TWEAK_SHELL_RELATIVE_PATH=${BASH_SOURCE[0]:-${(%):-%x}}
+export SPS_DEPLOY_DIR=$(dirname $(realpath $TWEAK_SHELL_RELATIVE_PATH))
+
 function wf {
   local command=$1
   if [[ $# > 0 ]]; then

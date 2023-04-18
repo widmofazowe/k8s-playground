@@ -11,14 +11,10 @@ OR `minikube image load my-image`
 Entrypoint: minikube service arroyo-entrypoint --url
 `kc port-forward service arroyo-entrypoint 3001:3000`
 
+`echo "$(minikube ip) sps.local" | sudo tee -a /etc/hosts`
+minikube ip -> 192.168.49.2
 
-Apps:
-| Name   | description |   |   |   |
-|--------|-------------|---|---|---|
-| arroyo | entrypoint  |   |   |   |
-| gecko  | frontend    |   |   |   |
-| den    | api         |   |   |   |
-
+prometheus -> `admin / prom-operator`
 
 TODO:
 ingress

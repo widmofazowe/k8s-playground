@@ -1,0 +1,23 @@
+replicaCount: 1
+
+selectorLabels:
+  app: api
+
+image:
+  repository: api
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+healthcheck:
+  enabled: true
+  path: /health
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80

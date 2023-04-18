@@ -1,0 +1,12 @@
+apiVersion: v2
+name: sps-platform
+version: 0.1.0
+description: A Helm chart for Spectral Services platform
+type: application
+dependencies:
+  - name: website
+    version: 0.1.0
+    repository: file://../website
+  - name: api
+    version: 0.1.0
+    repository: file://../api
